@@ -133,29 +133,6 @@ services:
             - kafka
             - objectstorage
 
-    caddy:
-        image: caddy:2.6.1
-        restart: unless-stopped
-        ports:
-            - '80:80'
-            - '443:443'
-        volumes:
-            - ./Caddyfile:/etc/caddy/Caddyfile
-            - caddy-data:/data
-            - caddy-config:/config
-        depends_on:
-            - web
-    objectstorage:
-        extends:
-            file: docker-compose.base.yml
-            service: objectstorage
-        restart: on-failure
-        volumes:
-            - objectstorage:/data
-        ports:
-            - '19000:19000'
-            - '19001:19001'
-
     asyncmigrationscheck:
         extends:
             file: docker-compose.base.yml
@@ -226,8 +203,6 @@ volumes:
     objectstorage:
     postgres-data:
     clickhouse-data:
-    caddy-data:
-    caddy-config:
     redis-data:
     redis7-data:
     kafka-data:
